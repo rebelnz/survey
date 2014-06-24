@@ -10,6 +10,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func accountHandler(w http.ResponseWriter, r *http.Request) {
+	// http.Redirect(w, r, "/", 302)
 	tpl.RenderAccountHome(w)
 }
 
@@ -34,8 +35,4 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(":9000",nil)
 }
-
-
-
-
 

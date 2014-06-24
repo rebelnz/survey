@@ -13,6 +13,3 @@ type Page struct {
 // 	SurveyName string
 // 	SurveyProject string 
 // }
-
-
-

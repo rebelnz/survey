@@ -19,18 +19,21 @@ import (
 // ))
 
 func RenderHome(w http.ResponseWriter, tmpl string) {	
-	data := &models.Page{Title:"Survey Home"}
-	t, _ := template.ParseFiles("templates/" + tmpl + ".html")
-	if err := t.Execute(w, data); err != nil {
+
+	data := models.Page{Title:"Survey Home Title"}
+	t, _ := template.ParseFiles("templates/" + tmpl + ".html")	
+
+	if err := t.Execute(w,data); err != nil {
 		fmt.Println(err)
 		return
 	}
+
 }
 
 func RenderAccountHome(w http.ResponseWriter) {
-	accData := &models.Account{AccountName:"Rebel Account"}
+	accData := models.Account{AccountName:"Rebel Account"}
 	data := struct {
-		AccountData *models.Account
+		AccountData models.Account
 		Ts time.Time
 	} {
 		accData,
