@@ -1,4 +1,4 @@
-package tpl
+package tmpl
 
 import (
  	"github.com/rebelnz/survey/models"
@@ -7,16 +7,6 @@ import (
 	"fmt"
 	"time"
 )
-
-// var AccountTpl = template.Must(template.ParseFiles(
-// 	"templates/_base.html",
-// 	"templates/account/index.html",
-// ))
-
-// var SurveysTpl = template.Must(template.ParseFiles(
-// 	"templates/_base.html",
-// 	"templates/surveys/index.html",
-// ))
 
 func RenderHome(w http.ResponseWriter, tmpl string) {	
 

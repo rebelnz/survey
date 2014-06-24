@@ -1,7 +1,0 @@
-**** Site
-     database
-     login
-
-**** Books
-     structs and methods -- the way to go p224
-     templates -- the way to go p465
