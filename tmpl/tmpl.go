@@ -8,11 +8,15 @@ import (
 	"time"
 )
 
+var person = models.Person{}
+
 func RenderHome(w http.ResponseWriter, tmpl string) {	
 
 	data := models.Page{Title:"Survey Home Title"}
-	t, _ := template.ParseFiles("templates/" + tmpl + ".html")	
+	t, _ := template.ParseFiles("templates/" + tmpl + ".html")
 
+	// data := db.DB.First(person)
+	
 	if err := t.Execute(w,data); err != nil {
 		fmt.Println(err)
 		return
@@ -36,17 +40,3 @@ func RenderAccountHome(w http.ResponseWriter) {
 	}
 	fmt.Println(data)
 }
-
-
-	
-
-
-
-
-
-
-
-
-
-
-

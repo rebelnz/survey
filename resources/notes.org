@@ -3,6 +3,6 @@
      login
 
 **** Books
-     structs and methods -- the way to go p224, gobook p101
+     structs and methods -- the way to go p224/p265, gobook p101
      templates -- the way to go p465
      random token -- build web... p271
