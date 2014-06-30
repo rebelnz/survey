@@ -2,21 +2,21 @@ package main
 
 import (
 	"net/http"
- 	"github.com/rebelnz/survey/tmpl"
+ 	"github.com/rebelnz/survey/routes"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl.RenderHome(w)
-}
-
-func accountHandler(w http.ResponseWriter, r *http.Request) {
-	// http.Redirect(w, r, "/", 302)
-	tmpl.RenderAccount(w)
+	routes.RenderHome(w,"home")
 }
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
 	// http.Redirect(w, r, "/", 302)
-	tmpl.RenderRegister(w)
+	routes.RenderRegister(w, "register")
+}
+
+func accountHandler(w http.ResponseWriter, r *http.Request) {
+	// http.Redirect(w, r, "/", 302)
+	routes.RenderAccount(w)
 }
 
 func main() {

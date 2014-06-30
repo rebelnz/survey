@@ -94,5 +94,5 @@ func init() {
 }
 
 type Page struct {
-	Title string
+	Tmpl string
 }
