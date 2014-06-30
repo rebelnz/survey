@@ -1,20 +1,26 @@
 package models
 
 import (
-	// "fmt"
+	"errors"
 	"github.com/rebelnz/survey/db"
 	"log"
 	"time"
+	"os"
 )
+
+var err error
+var ErrUsernameTaken = errors.New("username already taken")
+var Logger = log.New(os.Stdout, " ", log.Ldate|log.Ltime|log.Lshortfile)
 
 type Person struct {
 	Id        int64
+	Username  string `sql:"size:255;not null"`
+	Password  string `sql:"size:255;not null"`
 	Firstname string `sql:"size:255"`
 	Lastname  string `sql:"size:255"`
-	Email     string `sql:"size:255"`
-	Password  string `sql:"size:255"`
-	Priv      int64
-	CreatedAt time.Time
+	Email     string `sql:"size:255;not null"`
+	Priv      int64  `sql:"not null; default=1"`
+	CreatedAt time.Time 
 	UpdatedAt time.Time
 }
 
@@ -74,22 +80,19 @@ func init() {
 	db.DB.AutoMigrate(Answer{})
 	db.DB.AutoMigrate(Survey_question{})
 	log.Println("Tables created")
+	
+	init_user := Person{
+		Username: "admin",
+		Password: "password",
+	}
 
-	// person := Person{Firstname: "Rebel"}
-	// db.DB.Save(person)
+	err = db.DB.Save(&init_user).Error
+	if err != nil {
+		Logger.Println(err)
+	}
 
-	// p := db.DB.First(&person)
-	// fmt.Println(p)
 }
 
 type Page struct {
 	Title string
 }
-
-
-
-
-
-
-
-

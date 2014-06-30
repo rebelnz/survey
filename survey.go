@@ -6,17 +6,23 @@ import (
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl.RenderHome(w, "index")
+	tmpl.RenderHome(w)
 }
 
 func accountHandler(w http.ResponseWriter, r *http.Request) {
 	// http.Redirect(w, r, "/", 302)
-	tmpl.RenderAccountHome(w)
+	tmpl.RenderAccount(w)
+}
+
+func registerHandler(w http.ResponseWriter, r *http.Request) {
+	// http.Redirect(w, r, "/", 302)
+	tmpl.RenderRegister(w)
 }
 
 func main() {
 	http.HandleFunc("/",indexHandler)
 	http.HandleFunc("/account",accountHandler)
+	http.HandleFunc("/register",registerHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(":9000",nil)
 }

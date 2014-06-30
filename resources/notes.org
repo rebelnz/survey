@@ -1,6 +1,8 @@
 **** Site
      database
-     login
+     build login - passwords
+     register
+     
 
 **** Books
      structs and methods -- the way to go p224/p265, gobook p101
