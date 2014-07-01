@@ -2,14 +2,11 @@ package models
 
 import (
 	"github.com/rebelnz/survey/db"
-	"errors"
 	"log"
 	"time"
 	"os"
 )
 
-var err error
-var ErrUsernameTaken = errors.New("username already taken")
 var Logger = log.New(os.Stdout, " ", log.Ldate|log.Ltime|log.Lshortfile)
 
 // database
@@ -63,9 +60,8 @@ type Survey_question struct {
 // meta
 type Page struct {
 	Tmpl string
-	Flash string
+	Flash string		
 }
-
 
 func init() {
 	db.DB.SingularTable(true)
@@ -77,7 +73,6 @@ func init() {
 	db.DB.AutoMigrate(Answer{})
 	db.DB.AutoMigrate(Survey_question{})
 	log.Println("Tables created")
-	
 	// p := Person{
 	// 	Username: "rebel",
 	// 	Password: "pass",
@@ -87,23 +82,3 @@ func init() {
 	// 	Logger.Println(err)
 	// }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
