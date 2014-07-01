@@ -1,9 +1,9 @@
 package db
 
 import (
-	"fmt"
 	"github.com/jinzhu/gorm"
 	_"github.com/lib/pq"
+	"fmt"
 )
 
 var DB gorm.DB

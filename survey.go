@@ -11,7 +11,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
 	// http.Redirect(w, r, "/", 302)
-	routes.RenderRegister(w, "register")
+	routes.RenderRegister(w, r, "register")
 }
 
 func accountHandler(w http.ResponseWriter, r *http.Request) {
