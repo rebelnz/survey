@@ -63,6 +63,7 @@ type Survey_question struct {
 // meta
 type Page struct {
 	Tmpl string
+	Flash string
 }
 
 

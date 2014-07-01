@@ -8,3 +8,18 @@
      structs and methods -- the way to go p224/p265, gobook p101
      templates -- the way to go p465
      random token -- build web... p271
+
+**** Gorm
+type User struct {
+    Id        int64
+    FirstName string
+    LastName  string
+    Age       int
+}
+
+var users []User
+    db.Where("last_name = ?", "Doe").Or("age < ?", 12).Limit(2).Order("age", true).Find(&users)
+    for _, user := range users {
+        fmt.Printf("%+v,", user)
+    }
+    fmt.Println()

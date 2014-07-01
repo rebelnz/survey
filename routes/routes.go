@@ -23,24 +23,19 @@ func RenderHome(w http.ResponseWriter, tmpl string) {
 }
 
 func RenderRegister(w http.ResponseWriter,r *http.Request, tmpl string) {		
+	data := m.Page{Tmpl:tmpl}
 	if r.Method == "POST" {
-		
 		err := c.Register(r) // check username isnt taken then register the user
 		
 		if err != nil {
-			fmt.Println("ok")
+			fmt.Println(err)
+			data.Flash = "Username Taken"
+		} else {
+			data.Flash = "Welcome New User"
+			http.Redirect(w, r, "/account", 302)
 		}
-
-		// r.ParseForm()
-		// fmt.Println(r.FormValue("username"))
-		// for k, v := range r.Form {
-		// 	fmt.Println("key: ", k)
-		// 	fmt.Println("value: ", v)
-		// }
-		http.Redirect(w, r, "/account", 302)
 	}
 	
-	data := m.Page{Tmpl:tmpl}
 	t, _ := template.ParseFiles("templates/_fore.html", "templates/register.html")
 	if err := t.Execute(w,data); err != nil {
 		fmt.Println(err)
