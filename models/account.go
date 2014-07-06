@@ -5,7 +5,7 @@ import (
 )
 
 
-type Person struct {
+type Account struct {
 	Id        int64
 	Username  string `sql:"size:255;not null"`
 	Password  string `sql:"size:255;not null"`

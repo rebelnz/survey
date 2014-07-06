@@ -4,7 +4,7 @@
 -- \c survey
 -- \dt
 
-CREATE TABLE person (
+CREATE TABLE account (
     id serial UNIQUE NOT NULL,
     firstname varchar(255) NOT NULL,
     lastname varchar(255) NOT NULL,
@@ -16,36 +16,36 @@ CREATE TABLE person (
     primary key (id)
 );
 
-CREATE TABLE account (
+CREATE TABLE organisation (
     id serial UNIQUE NOT NULL,
     account varchar(255) NOT NULL,
-    person_id integer NOT NULL,
+    account_id integer NOT NULL,
     created timestamp DEFAULT now() NOT NULL,
     updated timestamp DEFAULT now() NOT NULL,
-    foreign key (person_id) references person(id),
+    foreign key (account_id) references account(id),
     primary key (id)
 );
 
 CREATE TABLE campaign (
     id serial UNIQUE NOT NULL,
     campaign varchar(255) NOT NULL,
-    account_id integer NOT NULL,
+    organisation_id integer NOT NULL,
     created timestamp DEFAULT now() NOT NULL,
     updated timestamp DEFAULT now() NOT NULL,
-    foreign key (account_id) references account(id),
+    foreign key (organisation_id) references organisation(id),
     primary key (id)
 );
 
 CREATE TABLE survey (
     id serial UNIQUE NOT NULL,
     survey varchar(255) NOT NULL,
-    account_id integer NOT NULL,
+    organisation_id integer NOT NULL,
     questions json,
     -- questions json -- built from question
     status integer NOT NULL DEFAULT 0,
     created timestamp DEFAULT now() NOT NULL,
     updated timestamp DEFAULT now() NOT NULL,
-    foreign key (account_id) references account(id),
+    foreign key (organisation_id) references organisation(id),
     primary key (id)
 );
 

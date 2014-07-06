@@ -11,9 +11,9 @@ var Logger = log.New(os.Stdout, " ", log.Ldate|log.Ltime|log.Lshortfile)
 
 // database
 
-type Account struct {
+type Organisation struct {
 	Id          int64
-	PersonId    int64
+	AccountId    int64
 	AccountName string `sql:"size:255"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
@@ -57,15 +57,24 @@ type Survey_question struct {
 	QuestionId int64	
 }
 
-// meta
+// page meta
 type Page struct {
-	Tmpl string
-	Flash string		
+	UserID int64
+	Title string
+	Account interface{}
+	CSS []string
+	JS []string
+}
+
+
+type Flash struct {
+	Type string
+	Message string
 }
 
 func init() {
 	db.DB.SingularTable(true)
-	db.DB.AutoMigrate(Person{})
+	db.DB.AutoMigrate(Account{})
 	db.DB.AutoMigrate(Account{})
 	db.DB.AutoMigrate(Campaign{})
 	db.DB.AutoMigrate(Survey{})
@@ -73,7 +82,7 @@ func init() {
 	db.DB.AutoMigrate(Answer{})
 	db.DB.AutoMigrate(Survey_question{})
 	log.Println("Tables created")
-	// p := Person{
+	// p := Account{
 	// 	Username: "rebel",
 	// 	Password: "pass",
 	// }

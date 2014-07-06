@@ -14,15 +14,14 @@
 	<link rel="stylesheet" href="/static/css/grids-responsive-old-ie-min.css">
         <link rel="stylesheet" href="/static/css/marketing-old-ie.css">
 	<![endif]-->
-
+    
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="/static/css/side-menu.css">
 	<link rel="stylesheet" href="/static/css/grids-responsive-min.css">
         <link rel="stylesheet" href="/static/css/marketing.css">
 	<!--<![endif]-->
 	
-    <link rel="stylesheet" href="/static/css/{{ template "css" . }}.css">
-
+	{{ template "css" . }}
 
   </head>
 
@@ -43,6 +42,8 @@
     {{ template "splash" . }} <!-- for home -->
     
     {{ template "main" . }}
-            
+
+    {{ template "js" . }}
+    
   </body>
 </html>
