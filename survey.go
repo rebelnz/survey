@@ -26,22 +26,16 @@ func requireLogin(handler http.Handler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("requires login")
 		handler.ServeHTTP(w, r)
-		// if u := ctx.Get(r, "user"); u != nil {
-		// 	handler.ServeHTTP(w, r)
-		// } else {
-		// http.Redirect(w, r, "/", 302)
-		// }
 	}
 }	
 	
 func main() {
-	router.HandleFunc("/",indexHandler)
-	router.HandleFunc("/account",m.Use(accountHandler, requireLogin))
-	router.HandleFunc("/register",registerHandler)
-
-	http.Handle("/",router)
+	router.HandleFunc("/", indexHandler)
+	router.HandleFunc("/account", m.Use(accountHandler, requireLogin))
+	router.HandleFunc("/register", registerHandler)
+	http.Handle("/", router)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.ListenAndServe(":9000",nil)
+	http.ListenAndServe(":9000", nil)
 }
 
 

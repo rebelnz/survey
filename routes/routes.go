@@ -30,7 +30,8 @@ func RenderRegister(w http.ResponseWriter, r *http.Request, title string) {
 	if r.Method == "POST" {
 		err := c.Register(w,r) // checks username isnt taken then registers the user
 		if err != nil {
-			fmt.Println(err)
+			errorString := []string{err.Error(),"Error 2"}
+			data.Message = append(data.Message, errorString...)
 		} else {
 			http.Redirect(w, r, "/account", 302)
 		}

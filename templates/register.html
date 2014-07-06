@@ -37,6 +37,13 @@
           </fieldset>
         </form>
 
+	{{ if .Message }}
+	
+	{{ range .Message }}
+	<p>{{ . }}</p>
+	{{ end }}
+	{{ end }}
+	
       </div>
 
       <div class="l-box-lrg pure-u-1 pure-u-md-2-5">

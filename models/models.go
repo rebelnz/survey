@@ -64,17 +64,11 @@ type Page struct {
 	Account interface{}
 	CSS []string
 	JS []string
-}
-
-
-type Flash struct {
-	Type string
-	Message string
+	Message []string
 }
 
 func init() {
 	db.DB.SingularTable(true)
-	db.DB.AutoMigrate(Account{})
 	db.DB.AutoMigrate(Account{})
 	db.DB.AutoMigrate(Campaign{})
 	db.DB.AutoMigrate(Survey{})
