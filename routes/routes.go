@@ -1,9 +1,8 @@
 package routes
 
 import (
-	c "github.com/rebelnz/survey/controllers"
-	m "github.com/rebelnz/survey/models"
-	// s "github.com/rebelnz/survey/session"
+	con "github.com/rebelnz/survey/controllers"
+	mod "github.com/rebelnz/survey/models"
 	"github.com/rebelnz/survey/db"
 	"html/template"
 	"net/http"
@@ -11,7 +10,7 @@ import (
 )
 
 func RenderHome(w http.ResponseWriter, r *http.Request, title string) {
-	data := m.Page{
+	data := mod.Page{
 		Title: title,
 		UserID:1,
 	}
@@ -23,12 +22,12 @@ func RenderHome(w http.ResponseWriter, r *http.Request, title string) {
 }
 
 func RenderRegister(w http.ResponseWriter, r *http.Request, title string) {
-	data := m.Page{
+	data := mod.Page{
 		Title: title,
 		CSS: []string{"register","style"},
 	}
 	if r.Method == "POST" {
-		err := c.Register(w,r) // checks username isnt taken then registers the user
+		err := con.Register(w,r) // checks username isnt taken then registers the user
 		if err != nil {
 			errorString := []string{err.Error(),"Error 2"}
 			data.Message = append(data.Message, errorString...)
@@ -43,9 +42,34 @@ func RenderRegister(w http.ResponseWriter, r *http.Request, title string) {
 	}
 }
 
+func RenderLogin(w http.ResponseWriter, r *http.Request, title string) {
+	t, _ := template.ParseFiles("templates/_front.html", "templates/login.html")
+	data := mod.Page{
+		Title: title,
+		CSS: []string{"login"}}
+	if r.Method == "POST" {
+		err := con.Login(w, r)
+		if err != nil {
+			errorString := []string{err.Error(),"There was a problem logging in"}
+			data.Message = append(data.Message, errorString...)
+			t.Execute(w, data)
+		} else {
+		fmt.Println("success")
+			http.Redirect(w, r, "/account", 302)
+		}
+	}
+	if err := t.Execute(w, data); err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+
 func RenderAccount(w http.ResponseWriter, r *http.Request, title string) {
-	account := db.DB.First(&m.Account{}).Value
-	data := m.Page{
+	session, _ := con.Store.Get(r, con.SESSION_NAME)
+	
+	account := db.DB.First(&mod.Account{}).Value // this only gets first account DEV
+	data := mod.Page{
 		Title: title,
 		Account: account,
 		CSS: []string{"account"},
