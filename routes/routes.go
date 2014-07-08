@@ -54,7 +54,7 @@ func RenderLogin(w http.ResponseWriter, r *http.Request, title string) {
 			data.Message = append(data.Message, errorString...)
 			t.Execute(w, data)
 		} else {
-		fmt.Println("success")
+			fmt.Println("success") // DEV
 			http.Redirect(w, r, "/account", 302)
 		}
 	}
@@ -67,8 +67,13 @@ func RenderLogin(w http.ResponseWriter, r *http.Request, title string) {
 
 func RenderAccount(w http.ResponseWriter, r *http.Request, title string) {
 	session, _ := con.Store.Get(r, con.SESSION_NAME)
-	
-	account := db.DB.First(&mod.Account{}).Value // this only gets first account DEV
+	userid,_ := session.Values["UserID"]
+	// fmt.Println("User ID", userid) // DEV
+	if userid == nil {
+		http.Redirect(w, r, "/login", 302)		
+	}
+	account := db.DB.First(&mod.Account{},userid).Value // DEV this only gets first account
+	// fmt.Println(account) // DEV
 	data := mod.Page{
 		Title: title,
 		Account: account,

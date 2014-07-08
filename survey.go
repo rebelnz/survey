@@ -5,7 +5,7 @@ import (
 	// "fmt"
 	"github.com/gorilla/mux"
 	"github.com/rebelnz/survey/routes"
-	m "github.com/rebelnz/survey/middleware"
+	// m "github.com/rebelnz/survey/middleware" // DEV Use function - not being used 
 	c "github.com/rebelnz/survey/controllers"
 )
 
@@ -36,7 +36,8 @@ func main() {
 	router.HandleFunc("/register", registerHandler)
 	router.HandleFunc("/login", loginHandler)
 	router.HandleFunc("/logout", logoutHandler)
-	router.HandleFunc("/account", m.Use(accountHandler, c.RequireLogin))
+	// router.HandleFunc("/account", m.Use(accountHandler, c.RequireLogin))
+	router.HandleFunc("/account", accountHandler)
 	http.Handle("/", router)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(":9000", nil)

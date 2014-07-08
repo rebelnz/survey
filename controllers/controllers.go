@@ -78,20 +78,22 @@ func Logout(w http.ResponseWriter, r *http.Request) (error) {
 	session, _ := Store.Get(r, SESSION_NAME) // DEV handle error
 	delete(session.Values,"UserID")
 	delete(session.Values,"Auth")
+	session.Options.MaxAge = -1
+	_ = session.Save(r, w)
 	http.Redirect(w, r, "/login", 302)
 	return nil
 }
 
-
-func RequireLogin(handler http.Handler) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		session, _ := Store.Get(r, SESSION_NAME)
-		fmt.Println(session)
-		// 	http.Redirect(w, r, "/login", 302)
-		// }
-		handler.ServeHTTP(w, r)
-	}
-}	
+// DEV not being used anymore
+// func RequireLogin(handler http.Handler) http.HandlerFunc {
+// 	return func(w http.ResponseWriter, r *http.Request) {
+// 		session, _ := Store.Get(r, SESSION_NAME)
+// 		fmt.Println(session)
+// 		// 	http.Redirect(w, r, "/login", 302)
+// 		// }
+// 		handler.ServeHTTP(w, r)
+// 	}
+// }	
 
 
 
